@@ -1,0 +1,7 @@
+*.pyc
+*.c
+*.pyd
+
+build/
+dist/
+recforest.egg-info/
