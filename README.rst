@@ -5,15 +5,6 @@ This is the implementation of RecForest for anomaly detection, appearing in the 
 
 Installation
 ------------
-
-Stable Version
-**************
-
-The stable version of RecForest is available at PyPI, and you can install it via pip:
-
-.. code:: bash
-
-    pip install recforest
  
 Build from Source
 *****************
@@ -22,7 +13,7 @@ To get the latest version of RecForest, you need to install the package from sou
 
 .. code:: bash
 
-    git clone https://github.com/AaronX121/RecForest.git
+    git clone https://github.com/xuyxu/RecForest.git
     cd RecForest
     python setup.py install
 
