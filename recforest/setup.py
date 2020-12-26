@@ -22,7 +22,7 @@ def configuration(parent_package='', top_path=None):
                          extra_compile_args=["-O3"])
 
     message = ('Please install cython with a version >= {0} in order '
-               'to build a scikit-learn development version.').format(
+               'to build a recforest development version.').format(
                CYTHON_MIN_VERSION)
     try:
         import Cython
