@@ -32,7 +32,7 @@ def train_test_split_from_mat(datadir, test_size=0.4, random_state=None):
     X, y = data["X"], data["y"]
     inlier_X, inlier_y = X[y.reshape(-1) == 0, :], y[y.reshape(-1) == 0, :]
     outlier_X, outlier_y = X[y.reshape(-1) == 1, :], y[y.reshape(-1) == 1, :]
-    
+
     # Split data:
     #     Train: 60 % of inliers
     #     Test: 40 % of inliers + All outliers
