@@ -1,15 +1,20 @@
 RecForest
 =========
 
-This is the implementation of RecForest for anomaly detection, appearing in the paper "Reconstruction-based Anomaly Detection with Completely Random Forest," SIAM International Conference on Data Mining (2021). It is highly optimized and designed to be very easy-to-use.
+This is the implementation of RecForest for anomaly detection, appearing in the paper "Reconstruction-based Anomaly Detection with Completely Random Forest," SDM 2021. It is highly optimized and provides Scikit-Learn like APIs.
 
 Installation
 ------------
- 
+
+Stable version
+**************
+
+To be uploaded to PyPI.
+
 Build from Source
 *****************
 
-To get the latest version of RecForest, you need to install the package from source:
+To use the latest version of RecForest, you need to install the package from source:
 
 .. code:: bash
 
@@ -17,12 +22,12 @@ To get the latest version of RecForest, you need to install the package from sou
     cd RecForest
     python setup.py install
 
-You will need a C compiler to compile the .pyx files, such as GCC on Linux, or MVSC on Windows. Please refer to `Cython Installation <https://cython.readthedocs.io/en/latest/src/quickstart/install.html>`__ for details.
+A C compiler is needed in order to compile the .pyx files. Please refer to `Cython Installation <https://cython.readthedocs.io/en/latest/src/quickstart/install.html>`__ for details.
 
 Example 
 -------
 
-The code snippet below presents the minimal example on how to use RecForest for anomaly detection. Testing samples with larger prediction values (i.e., ``y_pred``) are more likely to be anomalies.
+The code snippet below presents the minimal example on how to use RecForest for anomaly detection. Testing samples with larger prediction values (i.e., ``y_pred``) are more likely to be anomalies. Scripts on reproducing experiment results in the original paper are available in the directory: examples.
 
 .. code:: python
 
@@ -31,16 +36,14 @@ The code snippet below presents the minimal example on how to use RecForest for 
     model.fit(X_train)
     y_pred = model.predict(X_test)
 
-As to the related scripts on reproducing experiment results in the original paper, please refer to files in the directory: examples.
-
 Documentation
 -------------
 
-Below are input parameters of RecForest:
+The input parameters of RecForest are listed as follow:
 
 * ``n_estimators``: Specify the number of decision trees in Recforest;
 * ``max_depth``: Specify the maximum depth of decision trees in Recforest;
-* ``n_jobs``: Specify the number of workers for parallelization;
+* ``n_jobs``: Specify the number of workers for joblib parallelization;
 * ``random_state``: Specify the random state for reproducibility.
 
 RecForest has three methods:
