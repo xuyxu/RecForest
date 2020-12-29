@@ -1,20 +1,12 @@
 RecForest
 =========
 
-This is the implementation of RecForest for anomaly detection, appearing in the paper "Reconstruction-based Anomaly Detection with Completely Random Forest," SDM 2021. It is highly optimized and provides Scikit-Learn like APIs.
+This is the official implementation of RecForest for anomaly detection, proposed in the paper "Reconstruction-based Anomaly Detection with Completely Random Forest," SIAM International Conference on Data Mining (SDM), 2021. It is highly optimized and provides Scikit-Learn like APIs.
 
 Installation
 ------------
 
-Stable version
-**************
-
-To be uploaded to PyPI.
-
-Build from Source
-*****************
-
-To use the latest version of RecForest, you need to install the package from source:
+To use the latest version of RecForest, you first need to install the package from source:
 
 .. code:: bash
 
@@ -22,12 +14,12 @@ To use the latest version of RecForest, you need to install the package from sou
     cd RecForest
     python setup.py install
 
-A C compiler is needed in order to compile the .pyx files. Please refer to `Cython Installation <https://cython.readthedocs.io/en/latest/src/quickstart/install.html>`__ for details.
+Notice that a C compiler is required to compile the pyx files (e.g., GCC on Linux, and MSVC on Windows). Please refer to `Cython Installation <https://cython.readthedocs.io/en/latest/src/quickstart/install.html>`__ for details.
 
 Example 
 -------
 
-The code snippet below presents the minimal example on how to use RecForest for anomaly detection. Testing samples with larger prediction values (i.e., ``y_pred``) are more likely to be anomalies. Scripts on reproducing experiment results in the original paper are available in the directory: examples.
+The code snippet below shows the minimal example on how to use RecForest for anomaly detection. Scripts on reproducing experiment results in the original paper are available in the directory ``examples``.
 
 .. code:: python
 
@@ -39,24 +31,24 @@ The code snippet below presents the minimal example on how to use RecForest for 
 Documentation
 -------------
 
-The input parameters of RecForest are listed as follow:
+RecForest has two hyper-parameters: ``n_estimators`` and ``max_depth``. Docstrings of the input parameters are listed below. 
 
 * ``n_estimators``: Specify the number of decision trees in Recforest;
 * ``max_depth``: Specify the maximum depth of decision trees in Recforest;
-* ``n_jobs``: Specify the number of workers for joblib parallelization;
+* ``n_jobs``: Specify the number of workers for joblib parallelization. ``-1`` means using all processors;
 * ``random_state``: Specify the random state for reproducibility.
 
-RecForest has three methods:
+RecForest has three public methods. Docstrings of these methods are listed below. Notice that for all methods, the data format of input X should be numpy array of the shape (n_samples, n_features).
 
-* ``fit(X)``: Fit RecForest using the input data X;
+* ``fit(X)``: Fit a RecForest using the input data X;
 * ``apply(X)``: Return the leaf node ID of input data X in each decision tree;
-* ``predict(X)``: Predict the anomaly score on the input data X.
+* ``predict(X)``: Return the anomaly score on the input data X.
 
 Package Dependencies
 ********************
 
 * numpy >= 1.13.3
 * scipy >= 0.19.1
-* joblib >= 0.11
+* joblib >= 0.12
 * cython >= 0.28.5
 * scikit-learn >= 0.22
