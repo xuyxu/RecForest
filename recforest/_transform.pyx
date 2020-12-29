@@ -95,25 +95,28 @@ cdef c_transform(const X_DTYPE_C [:] X,
         SIZE_t node_feature
         X_DTYPE_C node_threshold
 
-    # Traverse through all nodes
-    for i in range(n_nodes):
-        node_id = node_index[i]              # current node id
-        node_feature = feature[node_id]      # current splitting attribute
-        node_threshold = threshold[node_id]  # current splitting cut-off
+    with nogil:
 
-        if node_id == leaf_id:
-            break
+        # Traverse through all nodes
+        for i in range(n_nodes):
+            node_id = node_index[i]              # current node id
+            node_feature = feature[node_id]      # current splitting attribute
+            node_threshold = threshold[node_id]  # current splitting cut-off
 
-        # Check traversed direction
-        if X[node_feature] < node_threshold:
-            flag = False
-        else:
-            flag = True
-
-        # Update bounding boxes
-        if not flag:
-            if out_upper[sample_id, node_feature] > node_threshold:
-                out_upper[sample_id, node_feature] = node_threshold
-        elif flag:
-            if out_lower[sample_id, node_feature] < node_threshold:
-                out_lower[sample_id, node_feature] = node_threshold
+            # Skip leaf nodes
+            if node_id == leaf_id:
+                break
+    
+            # Check traversed direction
+            if X[node_feature] < node_threshold:
+                flag = False
+            else:
+                flag = True
+    
+            # Update bounding boxes
+            if not flag:
+                if out_upper[sample_id, node_feature] > node_threshold:
+                    out_upper[sample_id, node_feature] = node_threshold
+            elif flag:
+                if out_lower[sample_id, node_feature] < node_threshold:
+                    out_lower[sample_id, node_feature] = node_threshold

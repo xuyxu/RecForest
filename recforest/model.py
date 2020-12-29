@@ -98,7 +98,7 @@ class RecForest(object):
 
     def _transform(self, X):
         """Generate reconstructed samples from the bounding boxes."""
-        rets = Parallel(n_jobs=self.n_jobs)(
+        rets = Parallel(n_jobs=self.n_jobs, prefer="threads")(
             delayed(_parallel_transform)(X, tree, idx, self.amin, self.amax)
             for idx, tree in enumerate(self.estimator_.estimators_))
 
