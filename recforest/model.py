@@ -7,37 +7,39 @@ import numpy as np
 from joblib import Parallel, delayed
 from sklearn.ensemble import RandomTreesEmbedding
 
-from . import _transform as _LIB
+from . import _transform as _CLIB
 
 
 def _parallel_transform(X, tree, tree_idx, amin, amax):
-    """Private function on finding bounding boxes for each tree in parallel."""
+    """
+    Private function used to find bounding boxes for each tree in parallel."""
 
-    # Prepare data passed to the side of Cython
+    # Prepare data passed to the C side
     n_samples, _ = X.shape
     X_leaves = tree.apply(X)
     decision_path = tree.decision_path(X)
     feature = tree.tree_.feature
     threshold = tree.tree_.threshold
 
+    # Generate initial bounding boxes
     lower_bound = np.repeat(amin, n_samples, axis=0)
     upper_bound = np.repeat(amax, n_samples, axis=0)
 
     # Transform
-    _LIB._transform(X,
-                    X_leaves,
-                    decision_path,
-                    feature,
-                    threshold,
-                    lower_bound,
-                    upper_bound)
+    _CLIB._transform(X,
+                     X_leaves,
+                     decision_path,
+                     feature,
+                     threshold,
+                     lower_bound,
+                     upper_bound)
 
     return lower_bound, upper_bound
 
 
 class RecForest(object):
     """
-    Implementation of the RecForest for Anomaly Detection.
+    Implementation of RecForest for Anomaly Detection.
 
     Parameters
     ----------
@@ -81,7 +83,7 @@ class RecForest(object):
     def _rec_error(self, X, X_rec):
         """
         Compute the reconstruction error given the original sample and the
-        reconstructed results.
+        reconstructed sample.
         """
         assert X.shape == X_rec.shape
         rec_error = np.sum(np.square(X - X_rec), axis=1)
@@ -109,11 +111,12 @@ class RecForest(object):
             upper_bound = np.minimum(upper_bound, tree_upper)
 
         X_rec = .5 * lower_bound + .5 * upper_bound
+
         return X_rec
 
     def fit(self, X):
         """
-        Build the RecForest from the training set {X}.
+        Build the RecForest from the training set X.
 
         Parameters
         ----------
@@ -124,6 +127,11 @@ class RecForest(object):
         -------
         self
         """
+
+        # C-aligned
+        if not X.flags["C_CONTIGUOUS"]:
+            X = np.ascontiguousarray(X)
+
         self.amax = np.amax(X, axis=0).reshape(1, -1)
         self.amin = np.amin(X, axis=0).reshape(1, -1)
         self.estimator_.fit(X)
@@ -163,6 +171,11 @@ class RecForest(object):
         scores : ndarray of shape (n_samples,)
             The anomaly scores of each sample in X.
         """
+
+        # C-aligned
+        if not X.flags["C_CONTIGUOUS"]:
+            X = np.ascontiguousarray(X)
+
         n_samples, _ = X.shape
         scores = np.zeros((n_samples,))
         X_rec = self._transform(X)

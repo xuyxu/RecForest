@@ -7,7 +7,7 @@ from recforest.utils import evaluate_print, train_test_split_from_mat
 
 if __name__ == "__main__":
 
-    datadir = "ionosphere.mat"  # MODIFY THIS TO USE OTHER DATASETS
+    data_dir = "ionosphere.mat"  # MODIFY THIS TO USE OTHER DATASETS
 
     # Parameters
     n_estimators = 100
@@ -23,7 +23,7 @@ if __name__ == "__main__":
 
         # Load and split data
         X_train, y_train, X_test, y_test = train_test_split_from_mat(
-            datadir=datadir, random_state=seed
+            data_dir=data_dir, random_state=seed
         )
 
         # Model

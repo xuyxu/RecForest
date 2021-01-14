@@ -12,8 +12,6 @@ import numpy as np
 cimport numpy as np
 np.import_array()
 
-from libc.stdio cimport printf
-
 ctypedef np.npy_intp SIZE_t
 ctypedef np.npy_int32 INT32_t
 ctypedef np.npy_float64 X_DTYPE_C

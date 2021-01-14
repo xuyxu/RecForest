@@ -24,11 +24,11 @@ def evaluate_print(y, y_pred, verbose=1):
     return roc, precision
 
 
-def train_test_split_from_mat(datadir, test_size=0.4, random_state=None):
-    """Load and split the .mat data from `datadir` in the one-class setting."""
+def train_test_split_from_mat(data_dir, test_size=0.4, random_state=None):
+    """Load and split mat data from `data_dir` in the one-class setting."""
 
     # Load data
-    data = scio.loadmat(datadir)
+    data = scio.loadmat(data_dir)
     X, y = data["X"], data["y"]
     inlier_X, inlier_y = X[y.reshape(-1) == 0, :], y[y.reshape(-1) == 0, :]
     outlier_X, outlier_y = X[y.reshape(-1) == 1, :], y[y.reshape(-1) == 1, :]
@@ -39,7 +39,8 @@ def train_test_split_from_mat(datadir, test_size=0.4, random_state=None):
     X_train, tmp_X, y_train, tmp_y = train_test_split(
         inlier_X, inlier_y, test_size=test_size, random_state=random_state
     )
-    X_test, y_test = (np.vstack((tmp_X, outlier_X)),
-                      np.vstack((tmp_y, outlier_y)))
+
+    X_test = np.vstack((tmp_X, outlier_X))
+    y_test = np.vstack((tmp_y, outlier_y))
 
     return X_train, y_train, X_test, y_test
