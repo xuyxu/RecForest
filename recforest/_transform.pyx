@@ -46,9 +46,9 @@ cpdef _transform(const X_DTYPE_C [:, ::1] X,
     Returns
     -------
     out_lower : ndarray of shape (n_samples, n_features)
-        Lower bounds of bounding boxes for samples along all attributes.
+        Lower bounds of bounding boxes for each sample along all attributes.
     out_upper : ndarray of shape (n_samples, n_features)
-        Upper bounds of bounding boxes for samples along all attributes.
+        Upper bounds of bounding boxes for each sample along all attributes.
     """
 
     cdef:
@@ -104,13 +104,13 @@ cdef c_transform(const X_DTYPE_C [:] X,
             # Skip leaf nodes
             if node_id == leaf_id:
                 break
-    
-            # Check traversed direction
+
+            # Check the traversed direction
             if X[node_feature] < node_threshold:
                 flag = False
             else:
                 flag = True
-    
+
             # Update bounding boxes
             if not flag:
                 if out_upper[sample_id, node_feature] > node_threshold:
