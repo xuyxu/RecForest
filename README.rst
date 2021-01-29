@@ -6,13 +6,22 @@ This is the implementation of RecForest for anomaly detection, proposed in the p
 Installation
 ------------
 
+RecForest is available at `PyPI <https://pypi.org/>`__:
+
+.. code::bash
+
+    $ pip install recforest
+
+Build from Source
+~~~~~~~~~~~~~~~~~
+
 To use RecForest, you first need to install the package from source:
 
 .. code:: bash
 
-    git clone https://github.com/xuyxu/RecForest.git
-    cd RecForest
-    python setup.py install
+    $ git clone https://github.com/xuyxu/RecForest.git
+    $ cd RecForest
+    $ python setup.py install
 
 Notice that a C compiler is required to compile the pyx files (e.g., GCC on Linux, and MSVC on Windows). Please refer to `Cython Installation <https://cython.readthedocs.io/en/latest/src/quickstart/install.html>`__ for details.
 
