@@ -122,10 +122,6 @@ class RecForest(object):
         ----------
         X : ndarray of shape (n_samples, n_features)
             The input training data.
-
-        Returns
-        -------
-        self
         """
 
         # C-aligned

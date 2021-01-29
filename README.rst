@@ -8,12 +8,12 @@ Installation
 
 RecForest is available at `PyPI <https://pypi.org/>`__:
 
-.. code::bash
+.. code:: bash
 
     $ pip install recforest
 
 Build from Source
-~~~~~~~~~~~~~~~~~
+*****************
 
 To use RecForest, you first need to install the package from source:
 
