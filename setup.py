@@ -54,7 +54,6 @@ if __name__ == "__main__":
               "Operating System :: Microsoft :: Windows",
               "Operating System :: POSIX",
               "Operating System :: Unix",
-              "Operating System :: MacOS",
               "Programming Language :: Python :: 3",
               "Programming Language :: Python :: 3.6",
               "Programming Language :: Python :: 3.7",
