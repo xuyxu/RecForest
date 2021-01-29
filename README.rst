@@ -1,7 +1,7 @@
 RecForest
 =========
 
-This is the implementation of RecForest for anomaly detection, proposed in the paper "Reconstruction-based Anomaly Detection with Completely Random Forest," SIAM International Conference on Data Mining (SDM), 2021. It is highly optimized and provides Scikit-Learn like APIs.
+This is the official implementation of RecForest for anomaly detection, proposed in the paper "Reconstruction-based Anomaly Detection with Completely Random Forest," SIAM International Conference on Data Mining (SDM), 2021. It is highly optimized and provides Scikit-Learn like APIs.
 
 Installation
 ------------
@@ -15,7 +15,7 @@ RecForest is available at `PyPI <https://pypi.org/>`__:
 Build from Source
 *****************
 
-To use RecForest, you first need to install the package from source:
+To use the latest version of RecForest, you will need to install the package from source:
 
 .. code:: bash
 
@@ -28,23 +28,24 @@ Notice that a C compiler is required to compile the pyx files (e.g., GCC on Linu
 Example 
 -------
 
-The code snippet below presents the minimal example on how to use RecForest for anomaly detection. Scripts on reproducing experiment results in the paper are available in the directory ``examples``.
+The code snippet below presents the example on how to use RecForest for anomaly detection. Scripts on reproducing experiment results in the paper are available in the directory ``examples``.
 
 .. code:: python
 
     from recforest import RecForest
+
     model = RecForest()
     model.fit(X_train)
-    y_pred = model.predict(X_test)
+    anomaly_score = model.predict(X_test)
 
 Documentation
 -------------
 
-RecForest only has two hyper-parameters: ``n_estimators`` and ``max_depth``. Docstrings on the input parameters are listed below. 
+RecForest only has two hyper-parameters: ``n_estimators`` and ``max_depth``. Docstrings on the input parameters are listed below.
 
 * ``n_estimators``: Specify the number of decision trees in Recforest;
 * ``max_depth``: Specify the maximum depth of decision trees in Recforest;
-* ``n_jobs``: Specify the number of workers for joblib parallelization. ``-1`` means using all processors;
+* ``n_jobs``: Specify the number of processors for joblib parallelization. ``-1`` means using all processors;
 * ``random_state``: Specify the random state for reproducibility.
 
 RecForest has three public methods. Docstrings on these methods are listed below. Notice that for all methods, the accepted data format of input ``X`` is numpy array of the shape (n_samples, n_features).
